@@ -2,15 +2,25 @@
 
 import json
 import argparse
+from google import auth
 import google.oauth2.credentials
 import googleapiclient
 from googleapiclient import discovery
 from googleapiclient import errors as google_api_errors
+from google_agents import google_mnged_sa_set
 
 
+def get_google_managed_sa_list(google_mnged_sa_set, project_number):
+    # using set comprehension + replace()
+    # Replace substring in list of strings
+    result_google_mnged_sa = [sub.replace('PROJECT_NUMBER', project_number) for sub in google_mnged_sa_set]
+    #print(str(result_google_mnged_sa))
+    return result_google_mnged_sa
+    
 def get_project_ancestry(project_id, crm):
     response = crm.projects().getAncestry(projectId=project_id).execute()
     # This will include the project itself, so no need to manually take care of that
+    #print(json.dumps(response['ancestor'], indent=2))
     return response['ancestor']
 
 
@@ -49,7 +59,7 @@ def get_iam_policies(project_ancestry, project_id, crm, crmv2):
     return policies
 
 
-def get_members_and_their_roles(policies):
+def get_members_and_their_roles(policies, google_managed_sa):
     members = {
         'Organizations': {},
         'Folders': {},
@@ -63,28 +73,38 @@ def get_members_and_their_roles(policies):
             for binding in bindings:
                 if binding.get('members'):
                     for member in binding['members']:
-                        try:
-                            members[resource_type][resource][member].append(binding['role'])
-                        except KeyError:
-                            members[resource_type][resource][member] = [binding['role']]
+                       if  member.split(':')[1] in google_managed_sa:
+                           #print(member)
+                           continue
+                       else:
+                           try:
+                                members[resource_type][resource][member].append(binding['role'])
+                           except KeyError:
+                                members[resource_type][resource][member] = [binding['role']]
     return members
 
 
 def main(args):
-    # credentials = None  # Application-Default
-    access_token = input('Enter an access token to use for authentication: ')
-    credentials = google.oauth2.credentials.Credentials(access_token.rstrip())
+    credentials = None  # Application-Default
+    # access_token = input('Enter an access token to use for authentication: ')
+    # credentials = google.oauth2.credentials.Credentials(access_token.rstrip())
+    credentials, default_project_id = auth.default()
     crm = discovery.build('cloudresourcemanager', 'v1', credentials=credentials)
     # Only v2 has folders.getIamPolicy for some reason
     crmv2 = discovery.build('cloudresourcemanager', 'v2', credentials=credentials)
-
+    ## Get the project number
+    crmv3 = discovery.build('cloudresourcemanager', 'v3', credentials=credentials)
+    project = crmv3.projects().get(name=f'projects/{args.project_id}').execute()
+    #print(json.dumps(project, indent=2))
+    project_number_str = project['name'].split('/')[1]
     project_ancestry = get_project_ancestry(args.project_id, crm)
     policies = get_iam_policies(project_ancestry, args.project_id, crm, crmv2)
-
+    #print(json.dumps(policies, indent=2))
+    google_mnged_sa = get_google_managed_sa_list(google_mnged_sa_set, project_number_str)
     # Get all members and their roles from the org, folder, and project IAM policies
-    all_members = get_members_and_their_roles(policies)
-    # print(json.dumps(all_members, indent=2))
-
+    all_members = get_members_and_their_roles(policies, google_mnged_sa)
+    #print(json.dumps(all_members, indent=2))
+   
     iam = discovery.build('iam', 'v1', credentials=credentials)
 
     all_permissions = {
