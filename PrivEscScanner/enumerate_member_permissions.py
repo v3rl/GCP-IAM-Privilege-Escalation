@@ -10,13 +10,15 @@ from googleapiclient import errors as google_api_errors
 from google_agents import google_mnged_sa_set
 
 
+
 def get_google_managed_sa_list(google_mnged_sa_set, project_number):
     # using set comprehension + replace()
     # Replace substring in list of strings
-    result_google_mnged_sa = [sub.replace('PROJECT_NUMBER', project_number) for sub in google_mnged_sa_set]
-    #print(str(result_google_mnged_sa))
+    result_google_mnged_sa_set1 = [sub.replace('PROJECT_NUMBER-IDENTIFIER', project_number) for sub in google_mnged_sa_set]
+    result_google_mnged_sa = [sub.replace('PROJECT_NUMBER', project_number) for sub in result_google_mnged_sa_set1]
+    print(str(result_google_mnged_sa))
     return result_google_mnged_sa
-    
+
 def get_project_ancestry(project_id, crm):
     response = crm.projects().getAncestry(projectId=project_id).execute()
     # This will include the project itself, so no need to manually take care of that
@@ -88,6 +90,7 @@ def main(args):
     credentials = None  # Application-Default
     # access_token = input('Enter an access token to use for authentication: ')
     # credentials = google.oauth2.credentials.Credentials(access_token.rstrip())
+    ## credentials = google.oauth2.credentials.Credentials()
     credentials, default_project_id = auth.default()
     crm = discovery.build('cloudresourcemanager', 'v1', credentials=credentials)
     # Only v2 has folders.getIamPolicy for some reason
