@@ -2,6 +2,7 @@
 
 google_mnged_sa_set = ([
 'service-PROJECT_NUMBER@gcp-sa-aiplatform-cc.iam.gserviceaccount.com',
+'PROJECT_NUMBER@cloudservices.gserviceaccount.com',
 'service-PROJECT_NUMBER@gcp-sa-vertex-es.iam.gserviceaccount.com',
 'service-PROJECT_NUMBER@gcp-sa-aiplatform-ft.iam.gserviceaccount.com',
 'service-PROJECT_NUMBER@gcp-sa-aiplatform-is.iam.gserviceaccount.com',
