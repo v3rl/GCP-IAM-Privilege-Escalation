@@ -257,6 +257,17 @@ methods_and_permissions = {
             'Folder',
             'Project'
         ]
+    },
+     'ComposerPrivilegeEscalation': {
+        'Permissions': [
+            'composer.environments.get',
+            'storage.objects.update',
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
     }
 }
 
