@@ -269,7 +269,7 @@ methods_and_permissions = {
             'Project'
         ]
     },
-     'DataFlowDefaultSAPrivilegeEscalation1': {
+     'CreateDataFlowJob': {
         'Permissions': [
             'dataflow.jobs.create'
         ],
@@ -279,7 +279,7 @@ methods_and_permissions = {
             'Project'
         ]
     },
-    'DataFlowDefaultSAPrivilegeEscalation2': {
+    'UpdateDataFlowJob': {
         'Permissions': [
             'dataflow.jobs.update'
         ],
@@ -289,7 +289,7 @@ methods_and_permissions = {
             'Project'
         ]
     },
-    'DataprocDefaultSAPrivilegeEscalation1': {
+    'CreateDataprocCluster': {
         'Permissions': [
             'dataproc.clusters.create'
         ],
@@ -299,7 +299,7 @@ methods_and_permissions = {
             'Project'
         ]
     }, 
-    'DataprocDefaultSAPrivilegeEscalation2': {
+    'UpdateDataproc': {
         'Permissions': [
             'dataproc.jobs.update'
         ],
@@ -309,7 +309,7 @@ methods_and_permissions = {
             'Project'
         ]
     }, 
-    'DataprocDefaultSAPrivilegeEscalation3': {
+    'CreateDataproc': {
         'Permissions': [
             'dataproc.jobs.create'
         ],
@@ -319,7 +319,7 @@ methods_and_permissions = {
             'Project'
         ]
     }, 
-  'DataFusionDefaultSAPrivilegeEscalation1': {
+  'CreateDataFusion': {
         'Permissions': [
             'datafusion.instances.create'
         ],
@@ -329,7 +329,7 @@ methods_and_permissions = {
             'Project'
         ]
     }, 
-    'DataFusionDefaultSAPrivilegeEscalation2': {
+    'UpdateDataFusion': {
         'Permissions': [
             'datafusion.instances.update'
         ],
