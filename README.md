@@ -1,8 +1,10 @@
 # IAM Privilege Escalation in GCP
 ## Installation
-python -m virtual .venv_gcp_iam
-source .venv_gcp_iam/bin/activate
-pip install -r requirements.txt
+`python -m virtual .venv_gcp_iam`
+
+`source .venv_gcp_iam/bin/activate`
+
+`pip install -r requirements.txt`
 
 ## Table of Contents
 - The `PrivEscScanner` Folder
