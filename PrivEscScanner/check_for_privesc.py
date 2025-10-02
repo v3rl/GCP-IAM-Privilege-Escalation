@@ -258,7 +258,7 @@ methods_and_permissions = {
             'Project'
         ]
     },
-     'ComposerPrivilegeEscalation': {
+     'ComposerDefaultSAPrivilegeEscalation': {
         'Permissions': [
             'composer.environments.get',
             'storage.objects.update',
@@ -268,7 +268,58 @@ methods_and_permissions = {
             'Folder',
             'Project'
         ]
-    }
+    },
+     'DataFlowDefaultSAPrivilegeEscalation1': {
+        'Permissions': [
+            'dataflow.jobs.create'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    },
+    'DataFlowDefaultSAPrivilegeEscalation2': {
+        'Permissions': [
+            'dataflow.jobs.update'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    },
+    'DataprocDefaultSAPrivilegeEscalation1': {
+        'Permissions': [
+            'dataproc.clusters.create'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    }, 
+    'DataprocDefaultSAPrivilegeEscalation2': {
+        'Permissions': [
+            'dataproc.jobs.update'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    }, 
+    'DataprocDefaultSAPrivilegeEscalation3': {
+        'Permissions': [
+            'dataproc.jobs.create'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    }, 
+    
 }
 
 
