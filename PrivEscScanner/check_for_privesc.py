@@ -319,7 +319,26 @@ methods_and_permissions = {
             'Project'
         ]
     }, 
-    
+  'DataFusionDefaultSAPrivilegeEscalation1': {
+        'Permissions': [
+            'datafusion.instances.create'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    }, 
+    'DataFusionDefaultSAPrivilegeEscalation2': {
+        'Permissions': [
+            'datafusion.instances.update'
+        ],
+        'Scope': [
+            'Organization',
+            'Folder',
+            'Project'
+        ]
+    } 
 }
 
 
